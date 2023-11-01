@@ -8,12 +8,16 @@ const openai = new OpenAIApi ({ apiKey: "sk-2PnSF5WLDJSItltMAFBeT3BlbkFJcj885OIu
                                 dangerouslyAllowBrowser: true});
 
 export async function sendMsgToOpenAI(message) {
+    console.log('running API call....');
+    console.log('input = ');
+    console.log(message);
+
     const res = await openai.chat.completions.create({
         messages: [{ role: "user", content: message }],
         model: "gpt-3.5-turbo",
         //model: "text-davinci-003",
     });
-
+console.log('ran API call....');
     //
     //const res = await openai.createCompletion({
     //   model: 'text-davinci-003',
@@ -25,5 +29,9 @@ export async function sendMsgToOpenAI(message) {
     //    presence_penalty: 0
 
     //});
-    return res.data.choices[0].text;
+    //return res.data.choices[0].text;
+    //const { id, created, choices, usage } = await client.getCompletions("<deployment ID>", ["YOUR PROMPT HERE"]);
+    console.log(res);
+    console.log(res.choices[0].message.content);
+    return res.choices[0].message.content;
 }
